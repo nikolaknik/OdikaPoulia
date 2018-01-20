@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/a"
+    android:backgroundTint="#80FFFFFF"
+    android:backgroundTintMode="src_over"
+    tools:context="gr.odikapoulia.odikapoulia.TopicActivity">
+
+    <Button
+        android:id="@+id/button_exit"
+        android:layout_width="102dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="258dp"
+        android:text="Έξοδος"
+        app:layout_constraintBottom_toTopOf="@+id/wellcome_topic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/wellcome_topic"
+        android:layout_width="wrap_content"
+        android:layout_height="27dp"
+        android:text="Forum Ωδικά Πουλιά "
+        android:textIsSelectable="false"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.562"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_exit"
+        tools:textAlignment="center" />
+
+    <ListView
+        android:id="@+id/list_topic"
+        android:layout_width="wrap_content"
+        android:layout_height="318dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_chainStyle="spread_inside"></ListView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="#2D89CC"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/list_topic">
+
+        <Button
+            android:id="@+id/mapsButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ΚΟΙΝΟΠΟΙΗΣΗ ΘΕΣΗΣ" />
+
+
+        <Button
+            android:id="@+id/topic_add1_button"
+            android:layout_width="189dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Πρόσθεση Topic"
+            app:layout_constraintRight_toLeftOf="@+id/mapsButton" />
+    </LinearLayout>
+
+
+    <LinearLayout
+
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
+        android:background="#2D89CC"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wellcome_topic">
+
+        <TextView
+            android:id="@+id/forum2_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:text="Α/Α"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/forum2_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ems="10"
+            android:text="Topics"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/forum2_topics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:text="Επισκέψεις"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
+

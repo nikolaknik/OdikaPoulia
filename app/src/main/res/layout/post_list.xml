@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@drawable/a"
+android:backgroundTint="#80FFFFFF"
+android:backgroundTintMode="src_over"
+tools:context="gr.odikapoulia.odikapoulia.PostsActivity">
+
+<Button
+    android:id="@+id/button_exit"
+    android:layout_width="102dp"
+    android:layout_height="42dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginStart="258dp"
+    android:layout_marginTop="8dp"
+    android:text="Έξοδος"
+    app:layout_constraintBottom_toTopOf="@+id/wellcome_post"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<TextView
+    android:id="@+id/wellcome_post"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Καλως Ήρθατε στο Forum Ωδικά Πουλιά. Διαβάστε όλα τα post"
+    android:textIsSelectable="false"
+    android:textSize="20sp"
+    android:textStyle="bold"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/button_exit"
+    tools:textAlignment="center" />
+
+<ListView
+    android:id="@+id/list_post"
+    android:layout_width="wrap_content"
+    android:layout_height="318dp"
+    android:layout_marginBottom="8dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+    app:layout_constraintVertical_bias="0.0"
+    app:layout_constraintVertical_chainStyle="spread_inside"></ListView>
+
+<LinearLayout
+    android:id="@+id/linearLayout"
+    android:layout_width="0dp"
+    android:layout_height="38dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginTop="13dp"
+    android:background="#2D89CC"
+    android:orientation="horizontal"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/list_post">
+
+    <Button
+        android:id="@+id/post_add"
+        android:layout_width="176dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginStart="177dp"
+        android:layout_weight="1"
+        android:text="Αφήστε σχόλιο."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</LinearLayout>
+
+
+<LinearLayout
+
+    android:id="@+id/linearLayout2"
+    android:layout_width="0dp"
+    android:layout_height="24dp"
+    android:layout_marginTop="13dp"
+    android:background="#2D89CC"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/wellcome_post">
+
+    <TextView
+        android:id="@+id/forum2_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textStyle="bold"
+        android:ems="10"
+        android:text="Α/Α" />
+
+    <TextView
+        android:id="@+id/forum2_name"
+        android:layout_width="218dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textStyle="bold"
+        android:ems="10"
+        android:text="Θέματα" />
+
+</LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
+
