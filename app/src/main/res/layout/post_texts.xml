@@ -21,6 +21,7 @@ tools:context="gr.odikapoulia.odikapoulia.PostsActivity">>
 
     <TextView
         android:id="@+id/post_id"
+        android:textSize="20sp"
         android:layout_width="10dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -29,6 +30,7 @@ tools:context="gr.odikapoulia.odikapoulia.PostsActivity">>
 
     <TextView
         android:id="@+id/post_name"
+        android:textSize="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"

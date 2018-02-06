@@ -20,6 +20,7 @@ android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/topic_id"
+        android:textSize="20sp"
         android:layout_width="3dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -28,6 +29,7 @@ android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/topic_name"
+        android:textSize="20sp"
         android:layout_width="177dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -36,6 +38,7 @@ android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/topic_views"
+        android:layout_marginLeft="20dp"
         android:layout_width="33dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

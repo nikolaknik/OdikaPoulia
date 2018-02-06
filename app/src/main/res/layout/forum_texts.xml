@@ -20,6 +20,7 @@
 
         <TextView
             android:id="@+id/forum_id"
+            android:textSize="20sp"
             android:layout_width="3dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -28,6 +29,7 @@
 
         <TextView
             android:id="@+id/forum_name"
+            android:textSize="20sp"
             android:layout_width="218dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -36,6 +38,7 @@
 
         <TextView
             android:id="@+id/forum_topics"
+            android:layout_marginLeft="16dp"
             android:layout_width="33dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
