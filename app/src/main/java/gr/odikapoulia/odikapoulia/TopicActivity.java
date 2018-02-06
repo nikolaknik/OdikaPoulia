@@ -51,17 +51,13 @@ public class TopicActivity extends AppCompatActivity {
         exit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                Intent in = new Intent(getApplicationContext(), MainActivity.class);
-                in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(in);
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                getIntent().setAction("");
+                startActivity(intent);
                 finish();
-
-                // LogOut forumLogout = new LogOut();
-              //  LogOut.Logout exit = forumLogout.new Logout();
-               // exit.Logout();
-              //  Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                //startActivity(intent);
+                System.exit(0);
 
             }
         });

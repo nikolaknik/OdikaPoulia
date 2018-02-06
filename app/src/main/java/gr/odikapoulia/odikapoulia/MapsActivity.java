@@ -154,31 +154,37 @@ public class MapsActivity extends AppCompatActivity
                     public void onComplete(@NonNull Task<Location> task) {
                         if (task.isSuccessful()) {
 
-                            if(mLastKnownLocation== null){
+                            if (mLastKnownLocation!=null){
+
+                                new GetMapData().execute();
+
+                            }else if(mLastKnownLocation == null){
+                                // Set the map's camera position to the current location of the device.
+                                mLastKnownLocation = task.getResult();
+                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                                        new LatLng(mLastKnownLocation.getLatitude(),
+                                                mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                                mMap.addMarker(new MarkerOptions()
+                                        .title("H thesi moy")
+                                        .snippet("")
+                                        .position(new LatLng(mLastKnownLocation.getLatitude(),
+                                                mLastKnownLocation.getLongitude())));
+
+                            }else {
+
 
                                 Log.d(TAG, "Current location is null. Using defaults.");
                                 Log.e(TAG, "Exception: %s", task.getException());
                                 mMap.moveCamera(CameraUpdateFactory
                                         .newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
                                 mMap.getUiSettings().setMyLocationButtonEnabled(false);
+                                mMap.addMarker(new MarkerOptions()
+                                        .title("Η συσκευή αρνηθηκε να δωσει ακριβής τοποθεσία")
+                                        .snippet("")
+                                        .position(new LatLng(-33.8523341, 151.2106085)));
 
                             }
-                            // Set the map's camera position to the current location of the device.
-                            mLastKnownLocation = task.getResult();
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                            new LatLng(mLastKnownLocation.getLatitude(),
-                                            mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
-                            mMap.addMarker(new MarkerOptions()
-                                    .title("H thesi moy")
-                                    .snippet("")
-                                    .position( new LatLng(mLastKnownLocation.getLatitude(),
-                                            mLastKnownLocation.getLongitude())));
 
-
-                            if (mLastKnownLocation!=null){
-
-                                new GetMapData().execute();
-                            }
 
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");

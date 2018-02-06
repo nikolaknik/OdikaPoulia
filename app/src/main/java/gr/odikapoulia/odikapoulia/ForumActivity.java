@@ -86,11 +86,13 @@ public class ForumActivity extends AppCompatActivity  {
         exit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                Intent in = new Intent(getApplicationContext(), MainActivity.class);
-                in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(in);
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                getIntent().setAction("");
+                startActivity(intent);
                 finish();
+                System.exit(0);
             }
         });
 
