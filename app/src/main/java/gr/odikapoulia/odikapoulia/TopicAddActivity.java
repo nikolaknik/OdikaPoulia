@@ -21,6 +21,21 @@ public class TopicAddActivity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     //private String TAG = MainActivity.class.getSimpleName();
 
+    public void onBackPressed() {
+
+        Intent intent = new Intent(TopicAddActivity.this, TopicActivity.class);
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        String username = sharedpreferences.getString(Name, user);
+        String password = sharedpreferences.getString(Password, pass);
+        intent.putExtra("user", username);
+        intent.putExtra("pass", password);
+        Intent intent1 = getIntent();
+        String parent_id = intent1.getStringExtra("selected-item");
+        intent.putExtra("selected-item", parent_id);
+        startActivity(intent);
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

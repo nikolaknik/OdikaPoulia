@@ -22,6 +22,23 @@ public class PostAddActivity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
 
     @Override
+    public void onBackPressed() {
+
+        Intent intent = new Intent(PostAddActivity.this, PostsActivity.class);
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        String username = sharedpreferences.getString(Name, user);
+        String password = sharedpreferences.getString(Password, pass);
+        intent.putExtra("user", username);
+        intent.putExtra("pass", password);
+        Intent intent2 = getIntent();
+        parent_id2 = intent2.getStringExtra("selected-item");
+        System.out.println("parent_id button"+parent_id2);
+
+        intent.putExtra("selected-item", parent_id2);
+        startActivity(intent);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_add);

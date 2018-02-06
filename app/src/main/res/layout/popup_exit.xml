@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_custom_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="2dp"
+    >
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="138dp"
+        android:background="@android:drawable/alert_dark_frame"
+        android:backgroundTint="@color/colorExit"
+        android:padding="30sp"
+        android:text="Θέλετε να κάνετε έξοδο από την εφαρμογή;"
+        android:textAlignment="center"
+        android:textSize="30sp" />
+
+    <ImageButton
+        android:id="@+id/ib_close"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignEnd="@+id/tv"
+        android:layout_alignRight="@+id/tv"
+        android:layout_alignTop="@+id/tv"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:cropToPadding="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/exit"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv"
+        android:layout_centerHorizontal="true"
+        android:text="Έξοδος"
+        android:textSize="30sp" />
+</RelativeLayout>
