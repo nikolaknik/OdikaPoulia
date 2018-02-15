@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.os.AsyncTask;
 
@@ -34,8 +35,6 @@ public class LoginActivity extends AppCompatActivity {
     String valid;
 
     SharedPreferences sharedpreferences;
-
-
     private class GetValid extends AsyncTask<Void, Void, String> {
 
         @Override
@@ -55,13 +54,8 @@ public class LoginActivity extends AppCompatActivity {
             password = (EditText) findViewById(R.id.password);
             pass = password.getText().toString();
 
-            user = "gogo";
-            pass = "123456!a";
-
             // Making a request to url and getting response
            String url = "https://forum.odikapoulia.gr/json/authValid.php?username="+user+"&password="+pass;
-
-           //String url = "https://forum.odikapoulia.gr/json/authValid.php?username=gogo&password=123456!a";
 
             System.out.println("url "+url);
 
@@ -90,12 +84,12 @@ public class LoginActivity extends AppCompatActivity {
             } else
 
             {
-                Log.e(TAG, "Couldn't get json from server.");
+                Log.e(TAG, "Παρακαλώ ενημερώστε την εφαρμογή σας.");
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         Toast.makeText(getApplicationContext(),
-                                "Couldn't get json from server. Check LogCat for possible errors!",
+                                "Παρακαλώ ενημερώστε την εφαρμογή σας.",
                                 Toast.LENGTH_LONG).show();
                     }
                 });
@@ -119,7 +113,6 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString(Name, user);
                 editor.putString(Password, pass);
                 editor.commit();
-               // Toast.makeText(LoginActivity.this,"...",Toast.LENGTH_LONG).show();
 
                 in = new Intent(LoginActivity.this,ForumActivity.class);
                 in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -152,6 +145,25 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        TextView register =(TextView)findViewById(R.id.web_register);
+
+        register.setOnClickListener(new View.OnClickListener(){
+
+            public void onClick(View v){
+
+                InternetCheck myIncheck = new InternetCheck();
+                if(!myIncheck.isNetworkAvailable(getApplicationContext())){
+
+                    Toast.makeText(getApplicationContext(), "Δεν υπάρχει σύνδεση στο Internet,παρακαλώ δοκιμάστε αργότερα",Toast.LENGTH_SHORT).show();
+                }else{
+
+
+                Intent intent = new Intent(LoginActivity.this, EmbedPageRegisterActivity.class);
+                startActivity(intent);
+                }
+            }
+        });
 
         b2 = (Button)findViewById(R.id.button_login);
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);

@@ -230,7 +230,7 @@ public class ForumActivity extends AppCompatActivity  {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                Toast.makeText(ForumActivity.this,"Φόρτωση Δεδομένων",Toast.LENGTH_LONG).show();
+                Toast.makeText(ForumActivity.this,"Γίνεται Επεξεργασία.",Toast.LENGTH_SHORT).show();
 
             }
 

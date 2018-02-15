@@ -40,7 +40,7 @@ public class PostsActivity extends AppCompatActivity {
     public static final String Password = "PassWord";
 
     String user,pass;
-    public String topic_id;
+    public String topic_id,text_forum_id;
     public MediaPlayer mediaPlayer;
     private Context mContext;
     private Activity mActivity;
@@ -54,12 +54,31 @@ public class PostsActivity extends AppCompatActivity {
     ArrayList<HashMap<String, String>> PostsList;
 
     @Override
+    public void onBackPressed() {
+
+        Intent intent = new Intent(getApplicationContext(), TopicActivity.class);
+        mediaPlayer.stop();
+        intent.putExtra("selected-item", text_forum_id);
+        //intent.putExtra("selected-item", topic_id);
+
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        String username = sharedpreferences.getString(Name, user);
+        String password = sharedpreferences.getString(Password, pass);
+        intent.putExtra("user", username);
+        intent.putExtra("pass", password);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_list);
 
         Intent intent = getIntent();
         topic_id = intent.getStringExtra("selected-item");
+        text_forum_id = intent.getStringExtra("text_forum_id");
         System.out.println("topic_id"+topic_id);
 
 
@@ -68,6 +87,7 @@ public class PostsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PostsActivity.this, PostAddActivity.class);
                 intent.putExtra("selected-item", topic_id);
+                intent.putExtra("text_forum_id", text_forum_id);
                 sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                 String username = sharedpreferences.getString(Name, user);
                 String password = sharedpreferences.getString(Password, pass);
@@ -154,7 +174,7 @@ public class PostsActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Toast.makeText(PostsActivity.this,"Json Data is downloading",Toast.LENGTH_LONG).show();
+            Toast.makeText(PostsActivity.this,"Φόρτωση Συζητήσεων.",Toast.LENGTH_SHORT).show();
 
         }
 
@@ -213,7 +233,7 @@ public class PostsActivity extends AppCompatActivity {
                         JSONObject json_post = c.getJSONObject("post");
                         String id = json_post.getString("id");
                         String text = json_post.getString("text");
-                        String parent_id = json_post.getString("parent_id");
+                        String parent_ids = json_post.getString("parent_id");
                         String date = json_post.getString("date");
                         String author_id = json_post.getString("author_id");
                         String uploads = json_post.getString("uploads");
@@ -225,7 +245,7 @@ public class PostsActivity extends AppCompatActivity {
                         // adding each child node to HashMap key => value
                         post.put("id", id);
                         post.put("text", text);
-                        post.put("parent_id", parent_id);
+                        post.put("parent_ids", parent_ids);
                         post.put("date", date);
                         post.put("sumPostsStr", sumPostsStr);
 

@@ -96,4 +96,8 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_add_forum">AddForumActivity</string>
     <string name="title_activity_maps">Map</string>
+
+    <string name="title_activity_fullscreen_register_embed">FullscreenActivityRegisterEmbed</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

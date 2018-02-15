@@ -42,6 +42,7 @@ public class TopicActivity extends AppCompatActivity {
     public MediaPlayer mediaPlayer;
     private Context mContext;
     private Activity mActivity;
+    public String text_forum_id;
 
     private PopupWindow mPopupWindow;
 
@@ -68,6 +69,13 @@ public class TopicActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //ekei poy einai h lista
         setContentView(R.layout.topic_list);
+
+        Intent intent = getIntent();
+
+        // fetch value from key-value pair and make it visible on TextView.
+        text_forum_id = intent.getStringExtra("selected-item");
+        System.out.println("text_forum_id oncreate "+text_forum_id);
+
         mediaPlayer = MediaPlayer.create(this, R.raw.nomusic);
         final Button exit = findViewById(R.id.button_exit);
         exit.setOnClickListener(new View.OnClickListener() {
@@ -141,8 +149,12 @@ public class TopicActivity extends AppCompatActivity {
             public void onClick(View v) {
                 TextView topicId = (TextView)findViewById(R.id.topic_parent_id);
                 String text_topicId = topicId.getText().toString();
+                System.out.println("text_topicId "+text_topicId);
+
                 Intent intent = new Intent(TopicActivity.this, TopicAddActivity.class);
                 intent.putExtra("selected-item", text_topicId);
+                System.out.println("text_forum_id sto add "+text_forum_id);
+                intent.putExtra("return_forum_id", text_forum_id);
                 sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                 String username = sharedpreferences.getString(Name, user);
                 String password = sharedpreferences.getString(Password, pass);
@@ -181,7 +193,7 @@ public class TopicActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Toast.makeText(TopicActivity.this,"!!!",Toast.LENGTH_LONG).show();
+            Toast.makeText(TopicActivity.this,"Φόρτωση Θεμάτων.",Toast.LENGTH_SHORT).show();
 
         }
 
@@ -194,14 +206,14 @@ public class TopicActivity extends AppCompatActivity {
             Intent intent = getIntent();
 
             // fetch value from key-value pair and make it visible on TextView.
-            String text_forum_id = intent.getStringExtra("selected-item");
+            text_forum_id = intent.getStringExtra("selected-item");
 
             //ta pernei apo to forumactivity.java
 
             String user = intent.getStringExtra("user");
             String pass = intent.getStringExtra("pass");
 
-            System.out.println(text_forum_id);
+            System.out.println("text_forum_id"+text_forum_id);
 
             // Making a request to url and getting response
             String url = "http://forum.odikapoulia.gr/json/allTopics.php?username="+user+"&password="+pass+"&parent_id="+text_forum_id+"&format=json";
@@ -307,6 +319,8 @@ public class TopicActivity extends AppCompatActivity {
                 String text_topicId = topicId.getText().toString();
                 Intent intent = new Intent(TopicActivity.this, PostsActivity.class);
                 intent.putExtra("selected-item", text_topicId);
+                intent.putExtra("text_forum_id", text_forum_id);
+                System.out.println("text_forum_id topic "+text_forum_id);
                 sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                 String username = sharedpreferences.getString(Name, user);
                 String password = sharedpreferences.getString(Password, pass);

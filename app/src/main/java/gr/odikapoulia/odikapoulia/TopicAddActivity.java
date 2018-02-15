@@ -18,6 +18,7 @@ package gr.odikapoulia.odikapoulia;
 
 public class TopicAddActivity extends AppCompatActivity {
     String user,pass;
+    public String parent_id;
     SharedPreferences sharedpreferences;
     //private String TAG = MainActivity.class.getSimpleName();
 
@@ -29,8 +30,6 @@ public class TopicAddActivity extends AppCompatActivity {
         String password = sharedpreferences.getString(Password, pass);
         intent.putExtra("user", username);
         intent.putExtra("pass", password);
-        Intent intent1 = getIntent();
-        String parent_id = intent1.getStringExtra("selected-item");
         intent.putExtra("selected-item", parent_id);
         startActivity(intent);
 
@@ -40,7 +39,10 @@ public class TopicAddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topic_add);
+        Intent intent = getIntent();
 
+        // fetch value from key-value pair and make it visible on TextView.
+        parent_id = intent.getStringExtra("return_forum_id");
         final Button button = findViewById(R.id.button_insertNewTopic);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -53,9 +55,6 @@ public class TopicAddActivity extends AppCompatActivity {
                 String password = sharedpreferences.getString(Password, pass);
                 intent.putExtra("user", username);
                 intent.putExtra("pass", password);
-                Intent intent1 = getIntent();
-                String parent_id = intent1.getStringExtra("selected-item");
-
                 intent.putExtra("selected-item", parent_id);
                 startActivity(intent);
             }
@@ -83,7 +82,7 @@ public class TopicAddActivity extends AppCompatActivity {
                 Intent intent = getIntent();
 
                 // fetch value from key-value pair and make it visible on TextView.
-                String parent_id = intent.getStringExtra("selected-item");
+                String parent_id = intent.getStringExtra("return_forum_id");
 
                 //ta pernei apo to forumactivity.java
 

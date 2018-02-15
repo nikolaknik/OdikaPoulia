@@ -13,7 +13,6 @@ package gr.odikapoulia.odikapoulia;
         import android.util.Log;
         import android.widget.Toast;
 
-
         import com.google.android.gms.location.FusedLocationProviderClient;
         import com.google.android.gms.location.LocationServices;
         import com.google.android.gms.location.places.GeoDataClient;
@@ -31,11 +30,26 @@ package gr.odikapoulia.odikapoulia;
         import com.google.android.gms.tasks.OnCompleteListener;
         import com.google.android.gms.tasks.Task;
 
+        import org.json.JSONArray;
+        import org.json.JSONException;
+        import org.json.JSONObject;
+
+        import java.lang.reflect.Array;
+        import java.util.ArrayList;
+        import java.util.HashMap;
+        import java.util.List;
+        import java.util.Objects;
+
 /**
  * An activity that displays a map showing the place at the device's current location.
  */
 public class MapsActivity extends AppCompatActivity
         implements OnMapReadyCallback {
+
+    List<String> al = new ArrayList<>();
+
+    ArrayList<HashMap<String, String>> DataList;
+    private ArrayList<LatLng> latlngs = new ArrayList<>();
 
     String user,pass,mapStatus;
     SharedPreferences sharedpreferences;
@@ -43,6 +57,9 @@ public class MapsActivity extends AppCompatActivity
     public static final String Name = "userName";
     public static final String MapStatus = "mapStatus";
     public static final String Password = "PassWord";
+    public String username;
+    private MarkerOptions options = new MarkerOptions();
+
 
     private static final String TAG = MapsActivity.class.getSimpleName();
     private GoogleMap mMap;
@@ -58,7 +75,7 @@ public class MapsActivity extends AppCompatActivity
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
     private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
-    private static final int DEFAULT_ZOOM = 10;
+    private static final int DEFAULT_ZOOM = 9;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
 
@@ -116,6 +133,7 @@ public class MapsActivity extends AppCompatActivity
             outState.putParcelable(KEY_CAMERA_POSITION, mMap.getCameraPosition());
             outState.putParcelable(KEY_LOCATION, mLastKnownLocation);
             super.onSaveInstanceState(outState);
+            new GetMapData().execute();
         }
     }
 
@@ -159,16 +177,22 @@ public class MapsActivity extends AppCompatActivity
                                 new GetMapData().execute();
 
                             }else if(mLastKnownLocation == null){
+
+                                new GetMapData().execute();
+
+                                sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                                username = sharedpreferences.getString(Name, user);
                                 // Set the map's camera position to the current location of the device.
                                 mLastKnownLocation = task.getResult();
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                         new LatLng(mLastKnownLocation.getLatitude(),
                                                 mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
                                 mMap.addMarker(new MarkerOptions()
-                                        .title("H thesi moy")
+                                        .title("Ο χρήστης "+username+ " είναι συνδεδεμένος.")
                                         .snippet("")
                                         .position(new LatLng(mLastKnownLocation.getLatitude(),
                                                 mLastKnownLocation.getLongitude())));
+
 
                             }else {
 
@@ -247,14 +271,14 @@ public class MapsActivity extends AppCompatActivity
 
         @Override
         protected void onPreExecute() {
-            super.onPreExecute();
-            //Toast.makeText(TopicActivity.this,"!!!",Toast.LENGTH_LONG).show();
 
+            super.onPreExecute();
         }
 
         protected Void doInBackground(Void... arg0) {
+            DataList = new ArrayList<>();
             sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-            String username = sharedpreferences.getString(Name, user);
+            username = sharedpreferences.getString(Name, user);
             String password = sharedpreferences.getString(Password, pass);
             String mapStatusString = sharedpreferences.getString(MapStatus, mapStatus);
             HttpHandler sh = new HttpHandler();
@@ -262,12 +286,89 @@ public class MapsActivity extends AppCompatActivity
             String url = "http://forum.odikapoulia.gr/json/insertMaps.php?username="+username+"&password="+password+"&lon="+mLastKnownLocation.getLatitude()+"&lat="+mLastKnownLocation.getLongitude()+"&mapStatus="+mapStatusString+"&format=json";
 
             System.out.println("url "+url);
-            sh.makeServiceCall(url);//Φέρνει το Json όπως είναι
+            String jsonStr =sh.makeServiceCall(url);//Φέρνει το Json όπως είναι
 
             System.out.println("jsonStr "+sh.makeServiceCall(url));
             Log.e(TAG, "Response from url: " + sh.makeServiceCall(url));
 
+
+            if (jsonStr != null) {
+                try {
+                    JSONObject jsonObj = new JSONObject(jsonStr);
+
+                    // Getting JSON Array node
+                    JSONArray posts = jsonObj.getJSONArray("posts");
+
+                    // looping through All posts
+
+                    String[] maparray = new String[20];
+
+                    for (int i = 0; i < posts.length(); i++) {
+
+                        JSONObject c = posts.getJSONObject(i);
+                        // post node is JSON Object kai meta array
+                        JSONObject json_post = c.getJSONObject("post");
+
+                        double lat = json_post.getDouble("lon");
+                        double lon = json_post.getDouble("lat");
+                        String username = json_post.getString("username");
+
+                        System.out.println("lat "+lat);
+                        System.out.println("lon "+lon);
+
+                        latlngs.add(new LatLng(lat, lon));
+
+                        al.add(username);
+
+
+                    }
+
+
+
+                } catch (final JSONException e) {
+                    Log.e(TAG, "Json parsing error: " + e.getMessage());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(),
+                                    "Json parsing error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+                }
+
+            } else {
+                Log.e(TAG, "Couldn't get json from server.");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),
+                                "Couldn't get json from server. Check LogCat for possible errors!",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+
+
+
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            int i = 0;
+            for (LatLng point : latlngs) {
+                options.position(point);
+                options.title("Ο χρήστης "+al.get(i)+" είναι συνδεδεμένος");
+                mMap.addMarker(options);
+                i++;
+            }
+
+
+
+
         }
     }
 

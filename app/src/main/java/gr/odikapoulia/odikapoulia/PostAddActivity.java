@@ -18,7 +18,7 @@ package gr.odikapoulia.odikapoulia;
 
 public class PostAddActivity extends AppCompatActivity {
     String user,pass;
-    public String parent_id2;
+    public String parent_id2,text_forum_id;
     SharedPreferences sharedpreferences;
 
     @Override
@@ -33,7 +33,7 @@ public class PostAddActivity extends AppCompatActivity {
         Intent intent2 = getIntent();
         parent_id2 = intent2.getStringExtra("selected-item");
         System.out.println("parent_id button"+parent_id2);
-
+        intent.putExtra("text_forum_id", text_forum_id);
         intent.putExtra("selected-item", parent_id2);
         startActivity(intent);
     }
@@ -42,6 +42,9 @@ public class PostAddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_add);
+        Intent intent = getIntent();
+        text_forum_id = intent.getStringExtra("text_forum_id");
+        System.out.println("text_forum_id add post "+text_forum_id);
 
         final Button button = findViewById(R.id.button_insertNewPost);
         button.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +61,8 @@ public class PostAddActivity extends AppCompatActivity {
                 Intent intent2 = getIntent();
                 parent_id2 = intent2.getStringExtra("selected-item");
                 System.out.println("parent_id button"+parent_id2);
+
+                intent.putExtra("text_forum_id", text_forum_id);
 
                 intent.putExtra("selected-item", parent_id2);
                 startActivity(intent);
